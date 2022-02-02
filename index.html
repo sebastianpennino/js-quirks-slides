@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Javascript Quirks – Curiosities of our beloved language </title>
+    <meta
+      name="description"
+      content="A brief and small presentation about our beloved JavaScript"
+    />
+    <meta name="author" content="Sebastian Pennino" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="dist/reset.css" />
+    <link rel="stylesheet" href="dist/reveal.css" />
+    <link rel="stylesheet" href="dist/theme/black.css" id="theme" />
+    <link rel="stylesheet" href="plugin/highlight/monokai.css" />
+    <link rel="icon" href="img/spw-colors-animated.gif">
+  </head>
+  <body>
+    <div class="reveal">
+      <div id="vicious" style="z-index: 9999; position: absolute; top: 0">
+        <img src="reaction-img/vicious.jpg" alt="Cowboy Bebop Vicious" />
+      </div>
+      <div id="jelinek" style="z-index: 9998; position: absolute; top: 0; right: 0">
+        <img src="reaction-img/jelinek.jpg" alt="Cowboy Bebop Vicious" />
+      </div>
+      <div id="soldan" style="z-index: 9997; position: absolute; top: 0">
+        <img src="reaction-img/soldan.jpg" alt="Cowboy Bebop Vicious" />
+      </div>
+      <div id="puzzle" style="z-index: 9996; position: absolute; top: 0">
+        <img src="reaction-img/puzzled.gif" alt="Cowboy Bebop Vicious" />
+      </div>
+      <div id="harold" style="z-index: 9995; position: absolute; top: 25px; width: 100%; text-align: center;">
+        <img style="margin: 0 auto" src="reaction-img/harold.jpg" alt="Cowboy Bebop Vicious" />
+      </div>
+
+      <div class="slides">
+        <section data-background-color="#000">    
+          <h1 style="margin-top: -50px">JavaScript Quirks</h1>
+          <p>
+            <small>By Sebastian Pennino</small>
+          </p>
+          <a style="display: block;" href="https://www.linkedin.com/in/spennino">
+            <img
+              src="img/spw-colors-animated.gif"
+              alt="A strange pixelated portrait of a developer"
+              style="
+                height: 64px;
+                margin: 0 auto;
+              "
+            />
+          </a>
+        </section>
+
+        <section style="height: 100vh" data-background="img/synthbg-3.gif" data-background-size="cover" data-background-color="#08012d">    
+          <img
+            src="img/title.png"
+            alt="Presentation logo"
+            style="
+              height: 256px;
+            "
+          />
+          <p style="margin-top: 25%;">
+            <small>By Sebastian Pennino</small>
+          </p>
+        </section>
+
+        <section data-background-color="#21207e">
+          <h2>Warning</h2>
+          <p>
+            The following presentation may contain:
+          </p>
+          <ul>
+            <li class="fragment">
+              Code examples 🧻
+            </li>
+            <li class="fragment">
+              Dad jokes 🤡
+            </li>
+            <li class="fragment">
+              Material that can be considered more recreational than useful (curiosities)
+            </li>
+            <li class="fragment">
+              References to stuff that happened 10+ years ago 👴
+            </li>
+            <li class="fragment">
+              Me trying to cover too much stuff in 30 minutes
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <section data-background-color="#000000">
+            <h2>Act 1: Brief JS history</h2>
+               <img
+                class="r-frame"
+                style="background: rgba(255, 255, 255, 0.1); margin-top: -5px; border: 10px solid black"
+                data-src="img/timeline.png"
+              />
+          </section>
+          <section data-background-color="#000000">
+            <h2>Javascript Creation</h2>
+            <figure>
+              <img src="img/Brendan_Eich.jpg" style="height: 200px;" alt="Brendan Eich, creator of javascript">
+              <figcaption><small class="fragment">Brendan Eich <span class="fragment">(picture taken while staring directly at the sun)</span></small></figcaption>
+            </figure>
+            <p>
+              <small class="fragment">
+                On November 5, 1955, Brendan Eich was hanging a clock while standing on his toilet. The porcelain on the toilet was wet and he slipped, hitting his head on the sink, when he woke up he wrote what he saw in a piece of paper...
+              </small>
+              <img class="fragment" src="img/tbc.png" />
+            </p>
+            
+          </section>
+          <section data-background-color="#000000">
+            <h2>The real story</h2>
+            <p>
+              <small>
+                On Sept 1995, Brendan was asked by Netscape Communications to design a versatile programming language that could speed up web development and serve as a scripting companion for Java. 
+              </small>
+              <small class="fragment">
+                <span style="color:#f00">He did it in 10 days.</span> The original purpose was:
+              </small>
+            </p>
+            <ul class="fragment">
+              <li>It will give Netscape Navigator and 'edge' over IE</li>
+              <li>Easy to use and learn</li>
+              <li>To work in the browser for "animations and effects" (to be used by designers)</li>
+              <li style="color:#f00">Don't block the user / browser when there's <em>errors</em></li>
+            </ul>
+          </section>
+        </section>
+
+        <section>
+          <h2>Act 2: Cases</h2>
+          <p>
+            Starting on the next slide we will be discussing individual cases.
+            I will present an example and we will discuss the outcome
+          </p>
+        </section>
+
+        <section>
+          <section data-auto-animate>
+            <h3 data-id="code-title">Finally some code!</h3>
+            <pre>
+              <code class="hljs" data-trim data-line-numbers data-id="first-cases">
+              // Case 1
+              const a = [10, 10, 10, 10].map(parseInt)
+
+              // Case 2
+              const b = 0.1 + 0.2
+
+              // Sebas: press U for fun
+              </code>
+            </pre>
+            <pre class="fragment">
+              <code data-trim class="hljs">
+                a -> [10, NaN, 2, 3]
+                b -> 0.30000000000000004
+              </code>
+            </pre>
+            <p class="fragment">
+              ...?
+            </p>
+          </section>
+
+          <section>
+            <pre>
+              <code class="hljs" data-trim data-line-numbers>
+              // Case 1 
+              const a = [10, 10, 10, 10].map(parseInt); // -> [10, NaN, 2, 3]
+              </code>
+            </pre>
+
+            <div class="fragment">
+              <pre>
+                <small>ParseInt:</small>
+                <code>parseInt(string[, radix])</code>
+              </pre>
+              <pre>
+                <small>Array.prototype.map:</small>
+                <code>(callbackfn, thisArg?: any): any[]</code>
+              </pre>
+              <pre>
+                <small>The callbackfn:</small>
+                <code>(value: number, index: number, array: number[]) => any</code>
+              </pre>
+            </div>
+            <p class="fragment">IMO in this case there's no <em style="color:#7850a6">Javascript quirk</em> perse. 
+                This might be a misusage (due to unfamiliarity) with the <strong>parseInt</strong> function and the <strong>map</strong> method</p>
+          </section>
+
+          <section>
+            <pre>
+              <code class="hljs" data-trim data-line-numbers>
+                // Case 2
+                const b = 0.1 + 0.2; // -> 0.30000000000000004
+              </code>
+            </pre>
+            <div>
+              <p class="fragment">
+              When JS was designed it was decided that all numbers should have the same representation
+              </p>
+              <p  class="fragment">
+              So instead of having <em>Integers, floats, signed, unsigned, etc</em> we only got a <strong>32-bit floating point representation</strong> for all numbers
+              </p>
+              <p  class="fragment">
+              There's a long explanation <a href="https://gauravkk22.medium.com/why-0-1-0-2-0-3-is-false-in-js-mystery-unsolved-with-solution-4f7db2755f18">(here)</a> that requires understanding binary but in a nutshell its a rounding error of the numeric representation, you can reproduce this error on any language that uses the 32-bit floating point representation
+              </p>
+            </div>
+          </section>
+
+        </section>
+
+        <section>
+          Converting values
+        </section>
+
+        <section>
+          <h3>Act 3: Converting Values</h3>
+          <p><small>Converting a value from one type to another is often called "type casting," when done explicitly, and "coercion" when done implicitly (forced by the rules of how a value is used).</small></p>
+          <p><small>However, in JS, most people refer to all these types of conversions as <em>coercion</em>, so the way I prefer to distinguish is to say "implicit coercion" vs. "explicit coercion."</small></p>
+
+          <pre class="fragment">
+            <code class="hljs" data-trim data-line-numbers="|1-3|5-9">
+              const a = 42;
+              const b = a + "";       // implicit coercion
+              const c = String( a );  // explicit coercion
+
+              const value1 = '6';
+              const value2 = 3;
+              let sum = value1 + value2;
+    
+              console.log(sum); // what will log?
+            </code>
+          </pre>
+          <pre class="fragment">it will log: '63' // jelinek</pre>
+        </section>
+
+        <section>
+
+          <section>
+            <h3>Logical NOT (!)</h3>
+            <p>
+              <small>
+                In javascript, a truthy value is a value that is considered true when encountered in a Boolean context.
+                Also, all values are truthy unless they are defined as falsy
+              </small>
+              <pre>Falsy values are: <code class="hljs" data-trim>false, 0, -0, 0n, "", null, undefined, NaN</code></pre>
+            </p>
+
+            <div class="fragment">
+              <pre><code class="hljs" data-trim data-line-numbers="|1|2|3|4"><script type="text/template">
+                (!0 === true)      // true
+                (!1 === false)     // true
+                (!"" === true)     // true
+                (!"foo" === false) // true
+              </script></code></pre>
+            </div>
+            <p>
+            <small class="fragment">
+              0 (zero) and one have a special place in javascript, if you often minify your code, you will find
+              that any <em>true</em> and any <em>false</em> in the code will be transpiled to !0 and !1 respectively (to save 2 and 3 characters!). (Online minifier https://codebeautify.org/minify-js)
+            </small>
+            </p>
+            
+          </section>
+
+          <section>
+            <h3>Unary plus (+) | Addition</h3>
+            <p><small>This simple character has different functions: precedes its operand and evaluates to its operand but attempts to convert it into a number, if it isn't already.</small></p>
+            <p><small>Otherwise produces the sum of numeric operands or string concatenation</small></p>
+            <div class="fragment">
+              <pre><code class="hljs" data-trim data-line-numbers="|1-3|5-12|14-21">
+                +true  // -> 1
+                +false // -> 0
+                +null  // -> 0
+
+                // Number + Number -> addition
+                1 + 2 // -> 3
+
+                // Boolean + Number -> addition
+                true + 1 // -> 2
+
+                // Boolean + Boolean -> addition
+                false + false // -> 0
+
+                // String + String -> concatenation
+                'foo' + 'bar' // -> "foobar"
+
+                // Number + String -> concatenation
+                5 + 'foo' // -> "5foo"
+
+                // String + Boolean -> concatenation
+                'foo' + false // -> "foofalse"
+
+              </code></pre>
+            </div>
+          </section>
+
+          <section>
+            <h3>toString() method</h3>
+            <p>All the different natives have a toString method that will be used implicitly by javascript</p>
+            <ul>
+              <li>
+                String.prototype.toString()
+              </li>
+              <li>
+                Number.prototype.toString()
+              </li>
+              <li>
+                Boolean.prototype.toString()
+              </li>
+              <li>
+                Object.prototype.toString()
+              </li>
+            </ul>
+            <p class="fragment highlight-blue">
+              <small>Note: there's also toNumber, and toBoolean, but we kinda cover those.</small>
+            </p>
+          </section>
+
+        </section>
+
+        <section>
+          <h3>Act 4: Advanced coercion examples</h3>
+          <p>Now that we have some tools let's dive in</p>
+        </section>
+
+        <section>
+          <section>
+            <h3>true is what?</h3>
+            <div>
+              <pre><code class="hljs" data-trim data-line-numbers>
+                'true' == true // false
+                false == 'false' // false
+              </code></pre>
+            </div>
+            <div class="fragment">
+              <pre><code data-trim>
+                'true' == true
+                ==> NaN == 1
+                ==> false
+                
+                false == 'false'
+                ==> 0 == NaN
+                ==> false
+
+                == operator triggers numeric conversion, 
+                string 'true' is converted to NaN, 
+                boolean true is converted to 1.
+              </code></pre>
+            </div>
+          </section>
+
+          <section>
+            <h3>fooNaN / baNaNa</h3>
+            <div>
+              <pre><code class="hljs" data-trim data-line-numbers>
+                ("foo" + + "bar") === "fooNaN" // true
+
+                "b" + "a" + +"a" + "a"; // -> 'baNaNa'
+              </code></pre>
+            </div>
+            <div class="fragment">
+              <h4>Explanation</h4>
+              <pre>
+                <code class="hljs" data-trim>
+                  "foo" + + "bar" 
+                  ==> "foo" + (+"bar") 
+                  ==> "foo" + NaN 
+                  ==> "fooNaN"
+
+                  Unary + operator has higher precedence over binary + operator. 
+                  So +'bar' expression evaluates first. 
+                  Unary plus triggers numeric conversion for string 'bar'.
+                  Since the string does not represent a valid number, the result is NaN. 
+                  On the second step, expression 'foo' + NaN is evaluated.
+                </code>
+              </pre>
+              
+            </div>
+          </section>
+
+          <section>
+            <h3>Adding arrays</h3>
+            <div>
+              <pre><code class="hljs" data-trim data-line-numbers>
+                [1, 2, 3] + [4, 5, 6]; // -> '1,2,34,5,6'
+              </code></pre>
+            </div>
+            <div class="fragment">
+              <pre><code data-trim>
+              // The concatenation happens. Step-by-step, it looks like this:             
+              [
+                // call toString()
+                (1, 2, 3)
+              ].toString() +
+              [4, 5, 6].toString();
+
+              // concatenation
+              "1,2,3" + "4,5,6";
+              
+              // ->
+              ("1,2,34,5,6");
+              </code></pre>
+            </div>
+          </section>
+
+          <section>
+            <h3>[] is equal ![]</h3>
+            <div>
+              <pre><code class="hljs" data-trim data-line-numbers>
+                [] == ![]; // -> true
+              </code></pre>
+            </div>
+            <div class="fragment">
+              <pre><code data-trim>
+              // Here is how this expression simplifies. Step-by-step:
+              +[] == +![];
+              0 == +false;
+              0 == 0;
+              true;
+              </code></pre>
+            </div>
+          </section>
+
+        </section>
+
+        <section>
+          <h3>Act 5: Other quirks</h3>
+          <ul>
+            <li>Array are not-so-secretly objects</li>
+            <li>Hoisting</li>
+            <li>Argument (Array.prototype.slice.call(arguments))</li>
+            <li>Accesing prototype using __proto__</li>
+            <li>Curiosity: JS F*** <a href="http://www.jsfuck.com/">(http://www.jsfuck.com/)</a></li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>The end</h3>
+          <img src="img/see-myself-out.gif" alt="end">
+        </section>
+
+        <section style="text-align: left">
+          <h4>Sources:</h4>
+          <small>
+          <ul>
+            <li>
+              JS Fuck "esoteric and educational programming style" http://www.jsfuck.com/
+            </li>
+            <li>
+              Online minifier https://codebeautify.org/minify-js
+            </li>
+            <li>
+              JavaScript data types and data structures https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures
+            </li>
+            <li>
+              WTF JS https://github.com/denysdovhan/wtfjs and https://wtfjs.com/
+            </li>
+            <li>
+              Abstract-equality-comparison https://262.ecma-international.org/11.0/#sec-abstract-equality-comparison
+            </li>
+            <li>
+              Brian Leroux - WTFJS (dotconferences.eu - Nov 30th, 2012) https://www.youtube.com/watch?v=et8xNAc2ic8
+            </li>
+            <li>
+              Gary Bernhardt - WAT (from CodeMash 2012 - Jan, 2012) https://www.destroyallsoftware.com/talks/wat
+            </li>
+            <li>
+              JavaScript type coercion explained - https://www.freecodecamp.org/news/js-type-coercion-explained-27ba3d9a2839
+            </li>
+            <li>
+              You don't know JS - Types & Grammar ch 1 types - https://www.oreilly.com/library/view/you-dont-know/9781491905159/ch01.html
+            </li>
+            <li>
+              You don't know JS - Types & Grammar ch 4 coercion - https://github.com/getify/You-Dont-Know-JS/blob/1st-ed/types%20%26%20grammar/ch4.md#chapter-4-coercion
+            </li>
+          </ul>
+          </small>
+        </section>
+      </div>
+    </div>
+
+    <script src="dist/reveal.js"></script>
+    <script src="plugin/zoom/zoom.js"></script>
+    <script src="plugin/notes/notes.js"></script>
+    <script src="plugin/search/search.js"></script>
+    <script src="plugin/markdown/markdown.js"></script>
+    <script src="plugin/highlight/highlight.js"></script>
+    <script src="dist/jquery-3.6.0.min.js"></script>
+    
+    <script>
+      let vicious = false;
+      let jelinek = false;
+      let soldan = false; 
+      let harold = false;
+      let puzzle = false;
+
+      $('#vicious').fadeOut() // v
+      $('#jelinek').fadeOut() // j
+      $('#soldan').fadeOut() // k
+      $('#puzzle').fadeOut() // u
+      $('#harold').fadeOut() // i
+      // http://gcctech.org/csc/javascript/javascript_keycodes.htm
+
+      Reveal.configure({
+        keyboard: {
+          81: () => { // do something custom when q is pressed
+            vicious = false;
+            jelinek = false;
+            soldan = false; 
+            harold = false;
+            puzzle = false;
+            $('#vicious').fadeOut() // v
+            $('#jelinek').fadeOut() // j
+            $('#soldan').fadeOut() // k
+            $('#puzzle').fadeOut() // u
+            $('#harold').fadeOut() // i
+            }, 
+          73: () => { // do something custom when i is pressed
+            harold = !harold; 
+              if(harold) {
+                $('#harold').fadeIn()
+              } else {
+                $('#harold').fadeOut()
+              }
+            }, 
+          85: () => { // do something custom when u is pressed
+            puzzle = !puzzle; 
+              if(puzzle) {
+                $('#puzzle').fadeIn()
+              } else {
+                $('#puzzle').fadeOut()
+              }
+            }, 
+          75: () => { // do something custom when k is pressed
+            soldan = !soldan; 
+              if(soldan) {
+                $('#soldan').fadeIn()
+              } else {
+                $('#soldan').fadeOut()
+              }
+            }, 
+          74: () => { // do something custom when J is pressed
+            jelinek = !jelinek; 
+              if(jelinek) {
+                $('#jelinek').fadeIn()
+              } else {
+                $('#jelinek').fadeOut()
+              }
+            }, 
+          86: () => { // do something custom when V is pressed
+            vicious = !vicious; 
+              if(vicious) {
+                $('#vicious').fadeIn()
+              } else {
+                $('#vicious').fadeOut()
+              }
+            }, 
+        }
+      });
+
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        center: true,
+        hash: true,
+        // more about plugins: https://revealjs.com/plugins/
+        plugins: [
+          RevealZoom,
+          RevealNotes,
+          RevealSearch,
+          RevealMarkdown,
+          RevealHighlight,
+        ]
+      });
+    </script>
+  </body>
+</html>

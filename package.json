@@ -1,0 +1,13 @@
+{
+  "name": "js-quirks-slides",
+  "version": "1.0.0",
+  "description": "a small talk about js quirks",
+  "main": "index.js",
+  "repository": "git@github.com:sebastianpennino/js-quirks-slides.git",
+  "author": "sebastianpennino <sebastian.pennino@gmail.com>",
+  "license": "MIT",
+  "private": false,
+  "dependencies": {
+    "reveal.js": "4.2.1"
+  }
+}
