@@ -1,13 +1,18 @@
 {
   "name": "js-quirks-slides",
   "version": "1.0.0",
-  "description": "a small talk about js quirks",
+  "description": "a small presentation about js quirks",
   "main": "index.js",
   "repository": "git@github.com:sebastianpennino/js-quirks-slides.git",
   "author": "sebastianpennino <sebastian.pennino@gmail.com>",
   "license": "MIT",
   "private": false,
   "dependencies": {
+    "dotenv": "16.0.0",
+    "gh-pages": "3.2.3",
     "reveal.js": "4.2.1"
+  },
+  "scripts": {
+    "upload": "node upload.js"
   }
 }
